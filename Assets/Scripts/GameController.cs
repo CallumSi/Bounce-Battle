@@ -19,10 +19,10 @@ public class GameController : MonoBehaviour
         int amountOfWolves = Random.Range(4,6);
         int amountOfPigs = Random.Range(2,4);
 
-        player.transform.Translate(new Vector3(0, 10, 0));
-        player.transform.Rotate(new Vector3(1, 0, 0), Random.Range(1, 360));
-        player.transform.Rotate(new Vector3(0, 1, 0), Random.Range(1, 360), Space.World);
-        player.transform.Translate(new Vector3(0, 0, -8));
+        //player.transform.Translate(new Vector3(0, 10, 0));
+        //player.transform.Rotate(new Vector3(1, 0, 0), Random.Range(1, 360));
+        //player.transform.Rotate(new Vector3(0, 1, 0), Random.Range(1, 360), Space.World);
+        //player.transform.Translate(new Vector3(0, 0, -8));
 
         //instantiate the wolves 
         for (int i=0; i < amountOfWolves; i++)

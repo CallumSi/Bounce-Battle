@@ -6,6 +6,8 @@ public class PigController : MonoBehaviour
 {
     //store the previous position of the mouse
     private Vector3 previousMousePosition;
+    //store the previous velocity
+    private Vector3 previousVelocity;
     //store if the player has initated a movement
     private bool playerDragging = false;
     //store if the player is currently moving on the x or y axis
@@ -44,12 +46,10 @@ public class PigController : MonoBehaviour
     public LayerMask player;
     //store the healthbar
     public Slider healthBar;
-    //store the stamina bar
-    public Slider staminaBar;
+  
     void Start()
     {
-        healthBar.maxValue = (float)maxHealth;
-        staminaBar.maxValue = (float)maxStamina;
+       
     }
 
     // Update is called once per frame
@@ -140,7 +140,7 @@ public class PigController : MonoBehaviour
         //        stamina += 0.001f;
         //    }
         //    healthBar.value = (float)health;
-        //    staminaBar.value = (float)stamina;
+ 
 
 
         //}
@@ -157,6 +157,33 @@ public class PigController : MonoBehaviour
         //    }
 
 
+        
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        var speed = previousVelocity.magnitude;
+        var direction = Vector3.Reflect(previousVelocity.normalized, collision.contacts[0].normal);
+        direction.y = 0;
+        GetComponent<Rigidbody>().velocity = direction * Mathf.Max(speed, 3f);
+
+        previousVelocity = GetComponent<Rigidbody>().velocity;
+      
+    }
+
+    public void ApplyPlayerBuff(PlayerController controller)
+    {
+        controller.maxHealth += 1;
+        controller.health = controller.maxHealth;
+        controller.maxStamina += 1;
 
     }
+    public void ApplyWolfBuff(WolfController controller)
+    {
+        controller.maxHealth += 1;
+        controller.health = controller.maxHealth;
+
+    }
+
+
 }

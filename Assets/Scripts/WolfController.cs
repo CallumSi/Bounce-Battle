@@ -7,6 +7,8 @@ public class WolfController : MonoBehaviour
 {
     //store the previous position of the mouse
     private Vector3 previousMousePosition;
+    //store the previous velocity
+    private Vector3 previousVelocity;
     //store if the player has initated a movement
     private bool playerDragging = false;
     //store if the player is currently moving on the x or y axis
@@ -23,13 +25,13 @@ public class WolfController : MonoBehaviour
     private float selectedForce;
     //store the max health
     [SerializeField]
-    private float maxHealth = 10;
+    public float maxHealth = 10;
     //store the health
     [SerializeField]
-    private float health = 10;
+    public float health = 10;
     //store the max stamina
     [SerializeField]
-    private float maxStamina = 5;
+    public float maxStamina = 5;
     //store the stamina
     [SerializeField]
     private float stamina = 5;
@@ -56,6 +58,10 @@ public class WolfController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (health <= 0)
+        {
+            Destroy(this.gameObject);
+        }
     //    //if (Input.GetMouseButtonDown(0))
     //    //{
     //    //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -140,8 +146,8 @@ public class WolfController : MonoBehaviour
     //    {
     //        stamina += 0.001f;
     //    }
-    //    healthBar.value = (float)health;
-    //    staminaBar.value = (float)stamina;
+       healthBar.value = (float)health;
+       staminaBar.value = (float)stamina;
 
 
     //}
@@ -159,5 +165,30 @@ public class WolfController : MonoBehaviour
 
 
 
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        var speed = previousVelocity.magnitude;
+        var direction = Vector3.Reflect(previousVelocity.normalized, collision.contacts[0].normal);
+        direction.y = 0;
+        GetComponent<Rigidbody>().velocity = direction * Mathf.Max(speed, 3f);
+        previousVelocity = GetComponent<Rigidbody>().velocity;
+
+        if (collision.collider.tag == "Player")
+        {
+            PlayerController playercontroller = collision.collider.gameObject.GetComponent<PlayerController>();
+            playercontroller.TakeDamage(-2);
+        }
+        if (collision.collider.tag == "Pig")
+        {
+            PigController pigcontroller = collision.collider.gameObject.GetComponent<PigController>();
+            pigcontroller.ApplyWolfBuff(this);
+        }
+
+    }
+    public void TakeDamage(int damageValue)
+    {
+        health += damageValue;
     }
 }

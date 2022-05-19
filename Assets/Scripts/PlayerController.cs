@@ -7,6 +7,10 @@ public class PlayerController : MonoBehaviour
 {
     //store the previous position of the mouse
     private Vector3 previousMousePosition;
+    //store the previous velocity
+    private Vector3 previousVelocity;
+    //store the previous attack power
+    private int previousAttackPower;
     //store if the player has initated a movement
     private bool playerDragging = false;
     //store if the player is currently moving on the x or y axis
@@ -23,13 +27,13 @@ public class PlayerController : MonoBehaviour
     private float selectedForce;
     //store the max health
     [SerializeField]
-    private float maxHealth = 10;
+    public float maxHealth = 10;
     //store the health
     [SerializeField]
-    private float health = 10;
+    public float health = 10;
     //store the max stamina
     [SerializeField]
-    private float maxStamina= 5;
+    public float maxStamina= 5;
     //store the stamina
     [SerializeField]
     private float stamina = 5;
@@ -82,18 +86,19 @@ public class PlayerController : MonoBehaviour
         }
         
         //if left click occours
-        if (Input.GetMouseButtonUp(0) && playerDragging==true && playerMoving == false )
+        if (Input.GetMouseButtonUp(0) && playerDragging==true )//&& playerMoving == false )
         {
             
             //get the current mouse position
             Vector3 currentMousePosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
             //get the direction vector from the previous mouse  pos to new mouse pos (normalised)
             Vector3 directionVector = previousMousePosition - currentMousePosition;
-            Debug.Log("stamina" + stamina);
+            
             if ((Mathf.Abs(directionVector.x) >= 0.4 || Mathf.Abs(directionVector.y) >= 0.4) && stamina==5)
             {
                 selectedForce = pushForce * (int)stamina;
                 stamina -= 5;
+                previousAttackPower = -5;
                 GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.y * pushForce);
               
             }
@@ -101,6 +106,7 @@ public class PlayerController : MonoBehaviour
             {
                 selectedForce = pushForce * (int)stamina;
                 stamina -= 4;
+                previousAttackPower = -4;
                 GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.y * pushForce);
                 
             }
@@ -108,6 +114,7 @@ public class PlayerController : MonoBehaviour
             {
                 selectedForce = pushForce * (int)stamina;
                 stamina -= 3;
+                previousAttackPower = -3;
                 GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.y * pushForce);
          
             }
@@ -115,6 +122,7 @@ public class PlayerController : MonoBehaviour
             {
                 selectedForce = pushForce * (int)stamina;
                 stamina -= 2;
+                previousAttackPower = -2;
                 GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.y * pushForce);
           
             }
@@ -122,6 +130,7 @@ public class PlayerController : MonoBehaviour
             {
                 selectedForce = pushForce * (int)stamina;
                 stamina -= 1;
+                previousAttackPower = -1;
 
                 GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.y * pushForce);
               
@@ -142,10 +151,30 @@ public class PlayerController : MonoBehaviour
         }
         healthBar.value = (float)health;
         staminaBar.value = (float)stamina;
+        previousVelocity = GetComponent<Rigidbody>().velocity;
 
-   
+
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        var speed = previousVelocity.magnitude;
+        var direction = Vector3.Reflect(previousVelocity.normalized, collision.contacts[0].normal);
+        direction.y = 0;
+        GetComponent<Rigidbody>().velocity = direction * Mathf.Max(speed, 3f);
+
+        previousVelocity = GetComponent<Rigidbody>().velocity;
+        if (collision.collider.tag == "Wolf")
+        {
+            WolfController wolfcontroller = collision.collider.gameObject.GetComponent<WolfController>();
+            wolfcontroller.TakeDamage(previousAttackPower);
+        }
+        if (collision.collider.tag == "Pig")
+        {
+            PigController pigcontroller = collision.collider.gameObject.GetComponent<PigController>();
+            pigcontroller.ApplyPlayerBuff(this);
+        }
+    }
     void GetMousePos()
     {
         if (playerMoving == false)
@@ -159,5 +188,9 @@ public class PlayerController : MonoBehaviour
       
 
 
+    }
+    public void TakeDamage(int damageValue)
+    {
+        health += damageValue;
     }
 }
