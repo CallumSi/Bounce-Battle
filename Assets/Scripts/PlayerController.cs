@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BallController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     //store the previous position of the mouse
     private Vector3 previousMousePosition;
