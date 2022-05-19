@@ -57,11 +57,11 @@ public class GameController : MonoBehaviour
 
     void SpawnPigs(int i)
     {
-        Debug.Log("Spawning pig" + i);
-        //instantiate the player
-        GameObject newPig = Instantiate(pig, new Vector3(0, 15 + i * 2, 0), Quaternion.identity);
-        newPig.transform.Rotate(new Vector3(1, 0, 0), Random.Range(1, 360));
-        newPig.transform.Rotate(new Vector3(0, 1, 0), Random.Range(1, 360), Space.World);
-        newPig.transform.Translate(new Vector3(0, 0, -8));
+        //Debug.Log("Spawning pig" + i);
+        ////instantiate the player
+        //GameObject newPig = Instantiate(pig, new Vector3(0, 15 + i * 2, 0), Quaternion.identity);
+        //newPig.transform.Rotate(new Vector3(1, 0, 0), Random.Range(1, 360));
+        //newPig.transform.Rotate(new Vector3(0, 1, 0), Random.Range(1, 360), Space.World);
+        //newPig.transform.Translate(new Vector3(0, 0, -8));
     }
 }

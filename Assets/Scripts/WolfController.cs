@@ -18,28 +18,20 @@ public class WolfController : MonoBehaviour
     //store if the player is has already jumped to indicate ready to move 
     private bool playerJumped = false;
     //store the push force
-    [SerializeField]
     private float pushForce = 4000;
     //store the selected force
-    [SerializeField]
     private float selectedForce;
     //store the max health
-    [SerializeField]
-    public float maxHealth = 10;
+    public float maxHealth;
     //store the health
-    [SerializeField]
-    public float health = 10;
+    public float health;
     //store the max stamina
-    [SerializeField]
-    public float maxStamina = 5;
+    public float maxStamina;
     //store the stamina
-    [SerializeField]
-    private float stamina = 5;
+    private float stamina;
     //store the health regeneration per second
-    [SerializeField]
     private float healthRegeneration = 0.2f;
     //store the stamina regeneration per second
-    [SerializeField]
     private float staminaRegeneration = 1;
     //store the max distance of the raycast
     private float maxDistance = 1000f;
@@ -51,6 +43,10 @@ public class WolfController : MonoBehaviour
     public Slider staminaBar;
     void Start()
     {
+        maxHealth = Random.Range(6, 8);
+        health = maxHealth;
+        maxStamina = Random.Range(3, 4);
+        stamina = maxStamina;
         healthBar.maxValue = (float)maxHealth;
         staminaBar.maxValue = (float)maxStamina;
     }
@@ -62,92 +58,97 @@ public class WolfController : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-    //    //if (Input.GetMouseButtonDown(0))
-    //    //{
-    //    //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    //    //    RaycastHit hit;
-    //    //    if (Physics.Raycast(ray, out hit, maxDistance, player))
-    //    //    {
-    //    //        GetMousePos();
-    //    //    }
-    //    }
+        //    //if (Input.GetMouseButtonDown(0))
+        //    //{
+        //    //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //    //    RaycastHit hit;
+        //    //    if (Physics.Raycast(ray, out hit, maxDistance, player))
+        //    //    {
+        //    //        GetMousePos();
+        //    //    }
+        //    }
 
-    //    if (Mathf.Abs(GetComponent<Rigidbody>().velocity.x) > 0.1 || Mathf.Abs(GetComponent<Rigidbody>().velocity.y) > 0.1 || Mathf.Abs(GetComponent<Rigidbody>().velocity.z) > 0.1)
-    //    {
+        //    if (Mathf.Abs(GetComponent<Rigidbody>().velocity.x) > 0.1 || Mathf.Abs(GetComponent<Rigidbody>().velocity.y) > 0.1 || Mathf.Abs(GetComponent<Rigidbody>().velocity.z) > 0.1)
+        //    {
 
-    //        playerMoving = true;
-
-
-    //    }
-    //    else
-    //    {
-    //        playerMoving = false;
+        //        playerMoving = true;
 
 
-
-    //    }
-
-    //    //if left click occours
-    //    if (Input.GetMouseButtonUp(0) && playerDragging == true && playerMoving == false)
-    //    {
-
-    //        //get the current mouse position
-    //        Vector3 currentMousePosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-    //        //get the direction vector from the previous mouse  pos to new mouse pos (normalised)
-    //        Vector3 directionVector = previousMousePosition - currentMousePosition;
-    //        Debug.Log("stamina" + stamina);
-    //        if ((Mathf.Abs(directionVector.x) >= 0.4 || Mathf.Abs(directionVector.y) >= 0.4) && stamina == 5)
-    //        {
-    //            selectedForce = pushForce * (int)stamina;
-    //            stamina -= 5;
-    //            GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.y * pushForce);
-
-    //        }
-    //        else if ((Mathf.Abs(directionVector.x) >= 0.3 || Mathf.Abs(directionVector.y) >= 0.3) && stamina >= 4)
-    //        {
-    //            selectedForce = pushForce * (int)stamina;
-    //            stamina -= 4;
-    //            GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.y * pushForce);
-
-    //        }
-    //        else if ((Mathf.Abs(directionVector.x) >= 0.2 || Mathf.Abs(directionVector.y) >= 0.2) && stamina >= 3)
-    //        {
-    //            selectedForce = pushForce * (int)stamina;
-    //            stamina -= 3;
-    //            GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.y * pushForce);
-
-    //        }
-    //        else if ((Mathf.Abs(directionVector.x) >= 0.1 || Mathf.Abs(directionVector.y) >= 0.1) && stamina >= 2)
-    //        {
-    //            selectedForce = pushForce * (int)stamina;
-    //            stamina -= 2;
-    //            GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.y * pushForce);
-
-    //        }
-    //        else if ((Mathf.Abs(directionVector.x) >= 0.0 || Mathf.Abs(directionVector.y) >= 0.0) && stamina >= 1)
-    //        {
-    //            selectedForce = pushForce * (int)stamina;
-    //            stamina -= 1;
-
-    //            GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.y * pushForce);
-
-    //        }
-    //        else
-    //        {
-
-    //        }
-
-    //        playerJumped = false;
-
-    //    }
+        //    }
+        //    else
+        //    {
+        //        playerMoving = false;
 
 
-    //    if (stamina < maxStamina)
-    //    {
-    //        stamina += 0.001f;
-    //    }
-       healthBar.value = (float)health;
-       staminaBar.value = (float)stamina;
+
+        //    }
+
+        //    //if left click occours
+        //    if (Input.GetMouseButtonUp(0) && playerDragging == true && playerMoving == false)
+        //    {
+
+        //        //get the current mouse position
+        //        Vector3 currentMousePosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+        //        //get the direction vector from the previous mouse  pos to new mouse pos (normalised)
+        //        Vector3 directionVector = previousMousePosition - currentMousePosition;
+        //        Debug.Log("stamina" + stamina);
+        //        if ((Mathf.Abs(directionVector.x) >= 0.4 || Mathf.Abs(directionVector.y) >= 0.4) && stamina == 5)
+        //        {
+        //            selectedForce = pushForce * (int)stamina;
+        //            stamina -= 5;
+        //            GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.y * pushForce);
+
+        //        }
+        //        else if ((Mathf.Abs(directionVector.x) >= 0.3 || Mathf.Abs(directionVector.y) >= 0.3) && stamina >= 4)
+        //        {
+        //            selectedForce = pushForce * (int)stamina;
+        //            stamina -= 4;
+        //            GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.y * pushForce);
+
+        //        }
+        //        else if ((Mathf.Abs(directionVector.x) >= 0.2 || Mathf.Abs(directionVector.y) >= 0.2) && stamina >= 3)
+        //        {
+        //            selectedForce = pushForce * (int)stamina;
+        //            stamina -= 3;
+        //            GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.y * pushForce);
+
+        //        }
+        //        else if ((Mathf.Abs(directionVector.x) >= 0.1 || Mathf.Abs(directionVector.y) >= 0.1) && stamina >= 2)
+        //        {
+        //            selectedForce = pushForce * (int)stamina;
+        //            stamina -= 2;
+        //            GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.y * pushForce);
+
+        //        }
+        //        else if ((Mathf.Abs(directionVector.x) >= 0.0 || Mathf.Abs(directionVector.y) >= 0.0) && stamina >= 1)
+        //        {
+        //            selectedForce = pushForce * (int)stamina;
+        //            stamina -= 1;
+
+        //            GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.y * pushForce);
+
+        //        }
+        //        else
+        //        {
+
+        //        }
+
+        //        playerJumped = false;
+
+        //    }
+
+        if (stamina < maxStamina)
+        {
+            stamina += 1f * Time.deltaTime;
+        }
+        if (health < maxHealth)
+        {
+            health += 0.1f * Time.deltaTime;
+        }
+
+
+        healthBar.value = (float)health;
+        staminaBar.value = (float)stamina;
 
 
     //}

@@ -147,13 +147,21 @@ public class PlayerController : MonoBehaviour
 
         if(stamina< maxStamina)
         {
-            stamina += 0.001f;
+            stamina += 1f * Time.deltaTime;
+        }
+        if (health < maxHealth)
+        {
+            health+= 0.2f* Time.deltaTime;
         }
         healthBar.value = (float)health;
         staminaBar.value = (float)stamina;
         previousVelocity = GetComponent<Rigidbody>().velocity;
 
-
+        if (health != maxHealth)
+        {
+            Debug.Log((int)health);
+        }
+      
     }
 
     private void OnCollisionEnter(Collision collision)
