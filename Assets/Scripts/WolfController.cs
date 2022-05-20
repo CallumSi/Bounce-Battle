@@ -33,8 +33,15 @@ public class WolfController : MonoBehaviour
     public Slider healthBar;
     //store the stamina bar
     public Slider staminaBar;
+    //audio
+    [SerializeField]
+    private AudioSource wolfHit;
+    //is the wolf dead
+    private bool wolfDead = false;
+
     void Start()
     {
+    
         maxHealth = Random.Range(6, 8);
         health = maxHealth;
         maxStamina = Random.Range(3, 4);
@@ -46,9 +53,12 @@ public class WolfController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (health <= 0)
+        if (health <= 0 && wolfDead==false)
         {
-            Destroy(this.gameObject);
+            wolfHit.Play();
+            wolfDead =true;
+            StartCoroutine(Die());
+
         }
         //    //if (Input.GetMouseButtonDown(0))
         //    //{
@@ -175,6 +185,13 @@ public class WolfController : MonoBehaviour
     }
     public void TakeDamage(int damageValue)
     {
-        health += damageValue*10;
+        health += damageValue;
+    }
+
+    IEnumerator Die()
+    {
+       
+        yield return new WaitForSeconds(1);
+        Destroy(this.gameObject);
     }
 }

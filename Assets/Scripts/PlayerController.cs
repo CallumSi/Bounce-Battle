@@ -54,6 +54,13 @@ public class PlayerController : MonoBehaviour
     public Slider staminaBar;
     //indicate if game won or lost
     public static bool gameWon;
+    //audio
+    [SerializeField]
+    private AudioSource chickenSoundDie;
+    [SerializeField]
+    private AudioSource chickenSound1;
+    [SerializeField]
+    private AudioSource chickenSound2;
     void Start()
     {
         healthBar.maxValue = (float)maxHealth;
@@ -202,10 +209,32 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(int damageValue)
     {
         health += damageValue;
+       
         if (health <= 0)
         {
-            gameWon = false;
-            SceneManager.LoadScene("GameEnd");
+           
+            chickenSoundDie.Play();
+            StartCoroutine(Die());
         }
+        else
+        {
+            if(Random.Range(0,10) < 5)
+            {
+                chickenSound1.Play();
+            }
+            else
+            {
+                chickenSound2.Play();
+            }
+        }
+    }
+
+
+    IEnumerator Die()
+    {
+        gameWon = false;
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene("GameEnd");
+       
     }
 }
