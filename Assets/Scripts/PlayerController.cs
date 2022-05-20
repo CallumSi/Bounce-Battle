@@ -7,19 +7,25 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     //store the previous position of the mouse
-    private Vector3 previousMousePosition;
+    public Vector3 previousMousePosition;
     //store the previous velocity
     private Vector3 previousVelocity;
+    //store the previous velocity
+    public Vector3 currentDirectionVector;
     //store the previous attack power
-    private int previousAttackPower;
+    private int attackPower;
     //store if the player has initated a movement
-    private bool playerDragging = false;
-    //store if the player is currently moving on the x or y axis
-    private bool playerMoving = false;
-    //store if the player is currently jumping 
-    private bool playerJumping = false;
-    //store if the player is has already jumped to indicate ready to move 
-    private bool playerJumped = false;
+    public bool playerDragging = false;
+    //store the max distance of the raycast
+    private float maxDistance = 1000f;
+    //store the layer mask
+    public LayerMask player;
+    //store the healthbar
+    public Slider healthBar;
+    //store the stamina bar
+    public Slider staminaBar;
+    //indicate if game won or lost
+    public static bool gameWon;
     //store the push force
     [SerializeField]
     private float pushForce = 4000;
@@ -44,16 +50,7 @@ public class PlayerController : MonoBehaviour
     //store the stamina regeneration per second
     [SerializeField]
     private float staminaRegeneration = 1;
-    //store the max distance of the raycast
-    private float maxDistance = 1000f;
-    //store the layer mask
-    public LayerMask player;
-    //store the healthbar
-    public Slider healthBar;
-    //store the stamina bar
-    public Slider staminaBar;
-    //indicate if game won or lost
-    public static bool gameWon;
+  
     //audio
     [SerializeField]
     private AudioSource chickenSoundDie;
@@ -72,106 +69,65 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, maxDistance, player))
-            {
-                playerDragging = true;
-            }
+            CheckIfPlayerClicked();
+           
         }
 
-        if (Mathf.Abs(GetComponent<Rigidbody>().velocity.x) > 0.1 || Mathf.Abs(GetComponent<Rigidbody>().velocity.y) > 0.1 || Mathf.Abs(GetComponent<Rigidbody>().velocity.z) > 0.1)
-        {
-          playerMoving = true;  
-        }
-        else
-        {
-            playerMoving = false;
-        }
-        
+
+        //get the current direction vector
+        UpdateDirectionVector();
+
+
         //if left click up occours
-        if (Input.GetMouseButtonUp(0) && playerDragging==true )//&& playerMoving == false )
-        {
-            Vector3 directionVector = new Vector3(0,0,0);
-
-            //get the current mouse position
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, maxDistance))
-            {
-                Vector3 currentMousePosition = hit.point;
-                Debug.Log("player at:" + transform.position);
-                Debug.Log("mouse at" + currentMousePosition);
-                directionVector = transform.position - currentMousePosition;
-
-                Debug.Log("Direction" + directionVector);
-                directionVector = directionVector.normalized;
-            }
-            
-            
-            if ((Mathf.Abs(directionVector.x) >= 0.4 || Mathf.Abs(directionVector.z) >= 0.4) && stamina==5)
+        if (Input.GetMouseButtonUp(0) && playerDragging==true )
+        {     
+            if ((Mathf.Abs(currentDirectionVector.x) >= 0.4 || Mathf.Abs(currentDirectionVector.z) >= 0.4) && stamina==5)
             {
                 selectedForce = pushForce * (int)stamina;
                 stamina -= 5;
-                previousAttackPower = -5;
-                GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.z * pushForce);
+                attackPower = -5;
+                GetComponent<Rigidbody>().AddForce(currentDirectionVector.x * pushForce, 0, currentDirectionVector.z * pushForce);
               
             }
-            else if ((Mathf.Abs(directionVector.x) >= 0.3 || Mathf.Abs(directionVector.z) >= 0.3) && stamina >= 4)
+            else if ((Mathf.Abs(currentDirectionVector.x) >= 0.3 || Mathf.Abs(currentDirectionVector.z) >= 0.3) && stamina >= 4)
             {
                 selectedForce = pushForce * (int)stamina;
                 stamina -= 4;
-                previousAttackPower = -4;
-                GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.z * pushForce);
+                attackPower = -4;
+                GetComponent<Rigidbody>().AddForce(currentDirectionVector.x * pushForce, 0, currentDirectionVector.z * pushForce);
                 
             }
-            else if ((Mathf.Abs(directionVector.x) >= 0.2 || Mathf.Abs(directionVector.z) >= 0.2 )&& stamina >= 3)
+            else if ((Mathf.Abs(currentDirectionVector.x) >= 0.2 || Mathf.Abs(currentDirectionVector.z) >= 0.2 )&& stamina >= 3)
             {
                 selectedForce = pushForce * (int)stamina;
                 stamina -= 3;
-                previousAttackPower = -3;
-                GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.z * pushForce);
+                attackPower = -3;
+                GetComponent<Rigidbody>().AddForce(currentDirectionVector.x * pushForce, 0, currentDirectionVector.z * pushForce);
          
             }
-            else if((Mathf.Abs(directionVector.x) >= 0.1 || Mathf.Abs(directionVector.z) >= 0.1 )&& stamina >= 2)
+            else if((Mathf.Abs(currentDirectionVector.x) >= 0.1 || Mathf.Abs(currentDirectionVector.z) >= 0.1 )&& stamina >= 2)
             {
                 selectedForce = pushForce * (int)stamina;
                 stamina -= 2;
-                previousAttackPower = -2;
-                GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.z * pushForce);
+                attackPower = -2;
+                GetComponent<Rigidbody>().AddForce(currentDirectionVector.x * pushForce, 0, currentDirectionVector.z * pushForce);
           
             }
-           else if((Mathf.Abs(directionVector.x) >= 0.0 || Mathf.Abs(directionVector.z) >= 0.0) && stamina >= 1)
+            else if((Mathf.Abs(currentDirectionVector.x) >= 0.0 || Mathf.Abs(currentDirectionVector.z) >= 0.0) && stamina >= 1)
             {
                 selectedForce = pushForce * (int)stamina;
                 stamina -= 1;
-                previousAttackPower = -1;
+                attackPower = -1;
 
-                GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.z * pushForce);
-              
+                GetComponent<Rigidbody>().AddForce(currentDirectionVector.x * pushForce, 0, currentDirectionVector.z * pushForce);
             }
-            else
-            {
-              
-            }
-
-            playerJumped = false;
+            playerDragging = false;
 
         }
-        
 
-        if(stamina< maxStamina)
-        {
-            stamina += 1f * Time.deltaTime;
-        }
-        if (health < maxHealth)
-        {
-            health+= 0.2f* Time.deltaTime;
-        }
-        healthBar.value = (float)health;
-        staminaBar.value = (float)stamina;
+        RegenerateStats();
         previousVelocity = GetComponent<Rigidbody>().velocity;
-      
+     
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -189,7 +145,7 @@ public class PlayerController : MonoBehaviour
         if (collision.collider.tag == "Wolf")
         {
             WolfController wolfcontroller = collision.collider.gameObject.GetComponent<WolfController>();
-            wolfcontroller.TakeDamage(previousAttackPower);
+            wolfcontroller.TakeDamage(attackPower);
         }
         if (collision.collider.tag == "Pig")
         {
@@ -197,17 +153,7 @@ public class PlayerController : MonoBehaviour
             pigcontroller.ApplyPlayerBuff(this);
         }
     }
-    void GetMousePos()
-    {
-        if (playerMoving == false)
-        {
-            //save the position of the mouse
-            previousMousePosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-            //inidcate player wants to move the ball
-            playerDragging = true;
-           
-        }
-    }
+
     public void TakeDamage(int damageValue)
     {
         health += damageValue;
@@ -239,4 +185,49 @@ public class PlayerController : MonoBehaviour
         SceneManager.LoadScene("GameEnd");
        
     }
+
+
+
+    private void CheckIfPlayerClicked()
+    {
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, maxDistance, player))
+        {
+            playerDragging = true;
+        }
+       
+            
+        
+    }
+
+    private void UpdateDirectionVector()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, maxDistance))
+        {
+            Vector3 currentMousePosition = hit.point;
+            previousMousePosition = currentMousePosition;
+            currentDirectionVector = transform.position - currentMousePosition;
+            currentDirectionVector = currentDirectionVector.normalized;
+        }
+    }
+
+    private void RegenerateStats()
+    {
+
+        if (stamina < maxStamina)
+        {
+            stamina += 1f * Time.deltaTime;
+        }
+        if (health < maxHealth)
+        {
+            health += 0.2f * Time.deltaTime;
+        }
+        healthBar.value = (float)health;
+        staminaBar.value = (float)stamina;
+    }
+    
 }

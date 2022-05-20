@@ -9,6 +9,8 @@ TagManager:
   - Wolf
   - Pig
   - Wall
+  - Strength
+  - Direction
   layers:
   - Default
   - TransparentFX
