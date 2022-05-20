@@ -26,6 +26,7 @@ public class CameraController : MonoBehaviour
         {
             //save the position of the mouse
             previousMousePosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+            
         }
         //if right click sill held
         else if (Input.GetMouseButton(1))

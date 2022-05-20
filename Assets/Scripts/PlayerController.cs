@@ -76,73 +76,78 @@ public class PlayerController : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, maxDistance, player))
             {
-                 GetMousePos();
+                playerDragging = true;
             }
         }
 
         if (Mathf.Abs(GetComponent<Rigidbody>().velocity.x) > 0.1 || Mathf.Abs(GetComponent<Rigidbody>().velocity.y) > 0.1 || Mathf.Abs(GetComponent<Rigidbody>().velocity.z) > 0.1)
         {
-      
-          playerMoving = true;
-    
-            
+          playerMoving = true;  
         }
         else
         {
             playerMoving = false;
-
-            
-   
         }
         
-        //if left click occours
+        //if left click up occours
         if (Input.GetMouseButtonUp(0) && playerDragging==true )//&& playerMoving == false )
         {
-            
+            Vector3 directionVector = new Vector3(0,0,0);
+
             //get the current mouse position
-            Vector3 currentMousePosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-            //get the direction vector from the previous mouse  pos to new mouse pos (normalised)
-            Vector3 directionVector = previousMousePosition - currentMousePosition;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, maxDistance))
+            {
+                Vector3 currentMousePosition = hit.point;
+                Debug.Log("player at:" + transform.position);
+                Debug.Log("mouse at" + currentMousePosition);
+                directionVector = transform.position - currentMousePosition;
+
+                Debug.Log("Direction" + directionVector);
+                directionVector = directionVector.normalized;
+            }
             
-            if ((Mathf.Abs(directionVector.x) >= 0.4 || Mathf.Abs(directionVector.y) >= 0.4) && stamina==5)
+            
+            if ((Mathf.Abs(directionVector.x) >= 0.4 || Mathf.Abs(directionVector.z) >= 0.4) && stamina==5)
             {
                 selectedForce = pushForce * (int)stamina;
                 stamina -= 5;
                 previousAttackPower = -5;
-                GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.y * pushForce);
+                GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.z * pushForce);
               
             }
-            else if ((Mathf.Abs(directionVector.x) >= 0.3 || Mathf.Abs(directionVector.y) >= 0.3) && stamina >= 4)
+            else if ((Mathf.Abs(directionVector.x) >= 0.3 || Mathf.Abs(directionVector.z) >= 0.3) && stamina >= 4)
             {
                 selectedForce = pushForce * (int)stamina;
                 stamina -= 4;
                 previousAttackPower = -4;
-                GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.y * pushForce);
+                GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.z * pushForce);
                 
             }
-            else if ((Mathf.Abs(directionVector.x) >= 0.2 || Mathf.Abs(directionVector.y) >= 0.2 )&& stamina >= 3)
+            else if ((Mathf.Abs(directionVector.x) >= 0.2 || Mathf.Abs(directionVector.z) >= 0.2 )&& stamina >= 3)
             {
                 selectedForce = pushForce * (int)stamina;
                 stamina -= 3;
                 previousAttackPower = -3;
-                GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.y * pushForce);
+                GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.z * pushForce);
          
             }
-            else if((Mathf.Abs(directionVector.x) >= 0.1 || Mathf.Abs(directionVector.y) >= 0.1 )&& stamina >= 2)
+            else if((Mathf.Abs(directionVector.x) >= 0.1 || Mathf.Abs(directionVector.z) >= 0.1 )&& stamina >= 2)
             {
                 selectedForce = pushForce * (int)stamina;
                 stamina -= 2;
                 previousAttackPower = -2;
-                GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.y * pushForce);
+                GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.z * pushForce);
           
             }
-           else if((Mathf.Abs(directionVector.x) >= 0.0 || Mathf.Abs(directionVector.y) >= 0.0) && stamina >= 1)
+           else if((Mathf.Abs(directionVector.x) >= 0.0 || Mathf.Abs(directionVector.z) >= 0.0) && stamina >= 1)
             {
                 selectedForce = pushForce * (int)stamina;
                 stamina -= 1;
                 previousAttackPower = -1;
 
-                GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.y * pushForce);
+                GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.z * pushForce);
               
             }
             else
@@ -202,9 +207,6 @@ public class PlayerController : MonoBehaviour
             playerDragging = true;
            
         }
-      
-
-
     }
     public void TakeDamage(int damageValue)
     {
