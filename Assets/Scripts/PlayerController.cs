@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -51,6 +52,8 @@ public class PlayerController : MonoBehaviour
     public Slider healthBar;
     //store the stamina bar
     public Slider staminaBar;
+    //indicate if game won or lost
+    public static bool gameWon;
     void Start()
     {
         healthBar.maxValue = (float)maxHealth;
@@ -199,5 +202,10 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(int damageValue)
     {
         health += damageValue;
+        if (health <= 0)
+        {
+            gameWon = false;
+            SceneManager.LoadScene("GameEnd");
+        }
     }
 }

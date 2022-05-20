@@ -175,6 +175,6 @@ public class WolfController : MonoBehaviour
     }
     public void TakeDamage(int damageValue)
     {
-        health += damageValue;
+        health += damageValue*10;
     }
 }

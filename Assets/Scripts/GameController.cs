@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -42,7 +43,15 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        
+        if (GameObject.Find("Wolf(Clone)") == false)
+        {
+            PlayerController.gameWon = true;
+            SceneManager.LoadScene("GameEnd");
+        }
+        else
+        {
+            Debug.Log("wolf found");
+        }
     }
 
     void SpawnWolves(int i )
