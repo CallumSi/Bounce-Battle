@@ -19,10 +19,10 @@ public class GameController : MonoBehaviour
         int amountOfWolves = Random.Range(4,6);
         int amountOfPigs = Random.Range(2,4);
 
-        //player.transform.Translate(new Vector3(0, 10, 0));
-        //player.transform.Rotate(new Vector3(1, 0, 0), Random.Range(1, 360));
-        //player.transform.Rotate(new Vector3(0, 1, 0), Random.Range(1, 360), Space.World);
-        //player.transform.Translate(new Vector3(0, 0, -8));
+        player.transform.Translate(new Vector3(0, 10, 0));
+        player.transform.Rotate(new Vector3(1, 0, 0), Random.Range(1, 360));
+        player.transform.Rotate(new Vector3(0, 1, 0), Random.Range(1, 360), Space.World);
+        player.transform.Translate(new Vector3(0, 0, -8));
 
         //instantiate the wolves 
         for (int i=0; i < amountOfWolves; i++)
@@ -48,7 +48,7 @@ public class GameController : MonoBehaviour
     void SpawnWolves(int i )
     {
         Debug.Log("Spawning wolf" + i);
-        //instantiate the player
+        //instantiate the wolf
         GameObject newWolf = Instantiate(wolf, new Vector3(0, 15 + i * 2, 0), Quaternion.identity);
         newWolf.transform.Rotate(new Vector3(1, 0, 0), Random.Range(1,360));
         newWolf.transform.Rotate(new Vector3(0, 1, 0), Random.Range(1, 360), Space.World);
@@ -57,11 +57,11 @@ public class GameController : MonoBehaviour
 
     void SpawnPigs(int i)
     {
-        //Debug.Log("Spawning pig" + i);
-        ////instantiate the player
-        //GameObject newPig = Instantiate(pig, new Vector3(0, 15 + i * 2, 0), Quaternion.identity);
-        //newPig.transform.Rotate(new Vector3(1, 0, 0), Random.Range(1, 360));
-        //newPig.transform.Rotate(new Vector3(0, 1, 0), Random.Range(1, 360), Space.World);
-        //newPig.transform.Translate(new Vector3(0, 0, -8));
+        Debug.Log("Spawning pig" + i);
+        //instantiate the pig
+        GameObject newPig = Instantiate(pig, new Vector3(0, 15 + i * 2, 0), Quaternion.identity);
+        newPig.transform.Rotate(new Vector3(1, 0, 0), Random.Range(1, 360));
+        newPig.transform.Rotate(new Vector3(0, 1, 0), Random.Range(1, 360), Space.World);
+        newPig.transform.Translate(new Vector3(0, 0, -8));
     }
 }

@@ -13,10 +13,6 @@ public class WolfController : MonoBehaviour
     private bool playerDragging = false;
     //store if the player is currently moving on the x or y axis
     private bool playerMoving = false;
-    //store if the player is currently jumping 
-    private bool playerJumping = false;
-    //store if the player is has already jumped to indicate ready to move 
-    private bool playerJumped = false;
     //store the push force
     private float pushForce = 4000;
     //store the selected force
@@ -33,10 +29,6 @@ public class WolfController : MonoBehaviour
     private float healthRegeneration = 0.2f;
     //store the stamina regeneration per second
     private float staminaRegeneration = 1;
-    //store the max distance of the raycast
-    private float maxDistance = 1000f;
-    //store the layer mask
-    public LayerMask player;
     //store the healthbar
     public Slider healthBar;
     //store the stamina bar
@@ -149,20 +141,8 @@ public class WolfController : MonoBehaviour
 
         healthBar.value = (float)health;
         staminaBar.value = (float)stamina;
+        previousVelocity = GetComponent<Rigidbody>().velocity;
 
-
-    //}
-
-    //void GetMousePos()
-    //{
-    //    if (playerMoving == false)
-    //    {
-    //        //save the position of the mouse
-    //        previousMousePosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-    //        //inidcate player wants to move the ball
-    //        playerDragging = true;
-
-    //    }
 
 
 
@@ -170,12 +150,17 @@ public class WolfController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        var speed = previousVelocity.magnitude;
-        var direction = Vector3.Reflect(previousVelocity.normalized, collision.contacts[0].normal);
-        direction.y = 0;
-        GetComponent<Rigidbody>().velocity = direction * Mathf.Max(speed, 3f);
-        previousVelocity = GetComponent<Rigidbody>().velocity;
+        if (collision.collider.tag == "Wall")
+        {
+            var speed = previousVelocity.magnitude;
+            var direction = Vector3.Reflect(previousVelocity.normalized, collision.contacts[0].normal);
+            direction.y = 0;
+            GetComponent<Rigidbody>().velocity = direction * Mathf.Max(speed, 3f);
 
+        }
+        
+
+        previousVelocity = GetComponent<Rigidbody>().velocity;
         if (collision.collider.tag == "Player")
         {
             PlayerController playercontroller = collision.collider.gameObject.GetComponent<PlayerController>();

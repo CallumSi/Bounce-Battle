@@ -156,20 +156,19 @@ public class PlayerController : MonoBehaviour
         healthBar.value = (float)health;
         staminaBar.value = (float)stamina;
         previousVelocity = GetComponent<Rigidbody>().velocity;
-
-        if (health != maxHealth)
-        {
-            Debug.Log((int)health);
-        }
       
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        var speed = previousVelocity.magnitude;
-        var direction = Vector3.Reflect(previousVelocity.normalized, collision.contacts[0].normal);
-        direction.y = 0;
-        GetComponent<Rigidbody>().velocity = direction * Mathf.Max(speed, 3f);
+        if (collision.collider.tag == "Wall")
+        {
+            var speed = previousVelocity.magnitude;
+            var direction = Vector3.Reflect(previousVelocity.normalized, collision.contacts[0].normal);
+            direction.y = 0;
+            GetComponent<Rigidbody>().velocity = direction * Mathf.Max(speed, 3f);
+
+        }
 
         previousVelocity = GetComponent<Rigidbody>().velocity;
         if (collision.collider.tag == "Wolf")
