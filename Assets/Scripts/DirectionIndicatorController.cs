@@ -19,7 +19,7 @@ public class DirectionIndicatorController : MonoBehaviour
     {
 
 
-        transform.position = new Vector3(ball.transform.position.x, ball.transform.position.y+1, ball.transform.position.z);
+        transform.position = new Vector3(ball.transform.position.x, ball.transform.position.y, ball.transform.position.z);
 
         PlayerController playerController = player.GetComponent<PlayerController>();
 

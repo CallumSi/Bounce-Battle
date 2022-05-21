@@ -32,7 +32,7 @@ public class StrengthIndicatorController : MonoBehaviour
     {
 
 
-        transform.position = new Vector3(ball.transform.position.x, ball.transform.position.y + 1, ball.transform.position.z);
+        transform.position = new Vector3(ball.transform.position.x, ball.transform.position.y, ball.transform.position.z);
 
         PlayerController playerController = player.GetComponent<PlayerController>();
 
@@ -41,7 +41,7 @@ public class StrengthIndicatorController : MonoBehaviour
 
             indicator.SetActive(true);
             transform.LookAt(new Vector3(playerController.currentMousePosition.x, transform.position.y, playerController.currentMousePosition.z));
-            transform.Rotate(90, 90, 0);
+            transform.Rotate(90, -90, 0);
             Debug.Log(-playerController.attackPower);
             if (-playerController.attackPower == 5){power5.enabled = true;}
             else{ power5.enabled = false;}
