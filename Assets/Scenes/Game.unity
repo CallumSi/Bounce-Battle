@@ -35375,11 +35375,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3658921031309435124, guid: 2aa6db62cb235184f82324504b11846e, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3658921031309435124, guid: 2aa6db62cb235184f82324504b11846e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6868814976796296320, guid: 2aa6db62cb235184f82324504b11846e, type: 3}
       propertyPath: m_Name
@@ -35387,7 +35387,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6868814976796296320, guid: 2aa6db62cb235184f82324504b11846e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6868814976796296380, guid: 2aa6db62cb235184f82324504b11846e, type: 3}
       propertyPath: m_RootOrder
