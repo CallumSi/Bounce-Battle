@@ -11,8 +11,10 @@ public class PlayerController : MonoBehaviour
     private Vector3 previousVelocity;
     //store the previous velocity
     public Vector3 currentDirectionVector;
-    //store the previous attack power
+    //store the current attack power
     public int attackPower;
+    //store the previous attack power
+    public int previousAttackPower;
     //store if the player has initated a movement
     public bool playerDragging = false;
     //store the max distance of the raycast
@@ -69,40 +71,16 @@ public class PlayerController : MonoBehaviour
             CheckIfPlayerClicked();
         }
 
-        
-        if (currentDirectionVector.magnitude > 9 && (int)stamina >= 5)
-        {
-            attackPower = -5;
-            
-        }
-        else if (currentDirectionVector.magnitude > 7 && (int)stamina >= 4)
-        {
-            attackPower = -4;
-           
-        }
-        else if (currentDirectionVector.magnitude > 5 && (int)stamina >= 3)
-        {
-            attackPower = -3;
-           
-        }
-        else if (currentDirectionVector.magnitude > 3 && (int)stamina >= 2)
-        {
-            attackPower = -2;
-          
-        }
-        else if (currentDirectionVector.magnitude > 1 && (int)stamina >= 1)
-        {
-            attackPower = -1;
-            
-        }
-        
-            
-            
-
+        //calculate the attack power
+        if (currentDirectionVector.magnitude > 9 && (int)stamina >= 5){attackPower = -5;}
+        else if (currentDirectionVector.magnitude > 7 && (int)stamina >= 4){attackPower = -4;}
+        else if (currentDirectionVector.magnitude > 5 && (int)stamina >= 3){attackPower = -3;}
+        else if (currentDirectionVector.magnitude > 3 && (int)stamina >= 2){attackPower = -2;}
+        else if (currentDirectionVector.magnitude > 1 && (int)stamina >= 1){attackPower = -1;}
         //get the current direction vector
         UpdateDirectionVector();
 
-        //calculate the attack power
+    
        
        
         //if left click up occours
@@ -115,6 +93,7 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("magnitude: "+currentDirectionVector.magnitude);
             //Debug.Log("attack power: " + attackPower);
             GetComponent<Rigidbody>().AddForce(currentDirectionVector.normalized.x * pushForce * -attackPower, 0, currentDirectionVector.normalized.z * pushForce * -attackPower);
+            previousAttackPower = attackPower;
             attackPower = 0;
             playerDragging = false;
 
@@ -140,7 +119,8 @@ public class PlayerController : MonoBehaviour
         if (collision.collider.tag == "Wolf")
         {
             WolfController wolfcontroller = collision.collider.gameObject.GetComponent<WolfController>();
-            wolfcontroller.TakeDamage(attackPower);
+            wolfcontroller.TakeDamage(previousAttackPower);
+            Debug.Log("Giving Damage" + previousAttackPower);
         }
         if (collision.collider.tag == "Pig")
         {
@@ -191,6 +171,7 @@ public class PlayerController : MonoBehaviour
         if (Physics.Raycast(ray, out hit, maxDistance, player))
         {
             playerDragging = true;
+            previousAttackPower = 0;
         }
        
             

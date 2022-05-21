@@ -43,11 +43,11 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        if (GameObject.Find("Wolf(Clone)") == false)
-        {
-            PlayerController.gameWon = true;
-            SceneManager.LoadScene("GameEnd");
-        }
+        //if (GameObject.Find("Wolf(Clone)") == false)
+        //{
+        //    PlayerController.gameWon = true;
+        //    SceneManager.LoadScene("GameEnd");
+        //}
    
     }
 

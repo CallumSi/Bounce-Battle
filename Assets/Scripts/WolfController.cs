@@ -5,18 +5,22 @@ using UnityEngine.UI;
 
 public class WolfController : MonoBehaviour
 {
-    //store the previous position of the mouse
-    private Vector3 previousMousePosition;
+    //store the directoin vector to the player
+    private Vector3 directionVectorToPlayer;
     //store the previous velocity
     private Vector3 previousVelocity;
+    //store the player
+    private GameObject player;
     //store if the player has initated a movement
     private bool playerDragging = false;
     //store if the player is currently moving on the x or y axis
     private bool playerMoving = false;
     //store the push force
-    private float pushForce = 4000;
+    private float pushForce = 500;
     //store the selected force
     private float selectedForce;
+    //store the previous attack power
+    public int previousAttackPower;
     //store the max health
     public float maxHealth;
     //store the health
@@ -33,129 +37,71 @@ public class WolfController : MonoBehaviour
     public Slider healthBar;
     //store the stamina bar
     public Slider staminaBar;
+    //store the attack power 
+    private int attackPower;
+    private float cooldown;
+    private float timer;
     //audio
     [SerializeField]
     private AudioSource wolfHit;
     //is the wolf dead
     private bool wolfDead = false;
+    //store if the game isstarted 
+    private bool gameStarting = true;
 
     void Start()
     {
-    
+        cooldown = Random.Range(1, 5);
         maxHealth = Random.Range(6, 8);
         health = maxHealth;
         maxStamina = Random.Range(3, 4);
         stamina = maxStamina;
         healthBar.maxValue = (float)maxHealth;
         staminaBar.maxValue = (float)maxStamina;
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
     void Update()
-    {
-        if (health <= 0 && wolfDead==false)
+    {   
+        //timer
+        timer += 1 * Time.deltaTime;
+        //wait 5 seconds grace period
+        if(gameStarting==true && timer > 5)
         {
-            wolfHit.Play();
-            wolfDead =true;
-            StartCoroutine(Die());
-
-        }
-        //    //if (Input.GetMouseButtonDown(0))
-        //    //{
-        //    //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //    //    RaycastHit hit;
-        //    //    if (Physics.Raycast(ray, out hit, maxDistance, player))
-        //    //    {
-        //    //        GetMousePos();
-        //    //    }
-        //    }
-
-        //    if (Mathf.Abs(GetComponent<Rigidbody>().velocity.x) > 0.1 || Mathf.Abs(GetComponent<Rigidbody>().velocity.y) > 0.1 || Mathf.Abs(GetComponent<Rigidbody>().velocity.z) > 0.1)
-        //    {
-
-        //        playerMoving = true;
-
-
-        //    }
-        //    else
-        //    {
-        //        playerMoving = false;
-
-
-
-        //    }
-
-        //    //if left click occours
-        //    if (Input.GetMouseButtonUp(0) && playerDragging == true && playerMoving == false)
-        //    {
-
-        //        //get the current mouse position
-        //        Vector3 currentMousePosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-        //        //get the direction vector from the previous mouse  pos to new mouse pos (normalised)
-        //        Vector3 directionVector = previousMousePosition - currentMousePosition;
-        //        Debug.Log("stamina" + stamina);
-        //        if ((Mathf.Abs(directionVector.x) >= 0.4 || Mathf.Abs(directionVector.y) >= 0.4) && stamina == 5)
-        //        {
-        //            selectedForce = pushForce * (int)stamina;
-        //            stamina -= 5;
-        //            GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.y * pushForce);
-
-        //        }
-        //        else if ((Mathf.Abs(directionVector.x) >= 0.3 || Mathf.Abs(directionVector.y) >= 0.3) && stamina >= 4)
-        //        {
-        //            selectedForce = pushForce * (int)stamina;
-        //            stamina -= 4;
-        //            GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.y * pushForce);
-
-        //        }
-        //        else if ((Mathf.Abs(directionVector.x) >= 0.2 || Mathf.Abs(directionVector.y) >= 0.2) && stamina >= 3)
-        //        {
-        //            selectedForce = pushForce * (int)stamina;
-        //            stamina -= 3;
-        //            GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.y * pushForce);
-
-        //        }
-        //        else if ((Mathf.Abs(directionVector.x) >= 0.1 || Mathf.Abs(directionVector.y) >= 0.1) && stamina >= 2)
-        //        {
-        //            selectedForce = pushForce * (int)stamina;
-        //            stamina -= 2;
-        //            GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.y * pushForce);
-
-        //        }
-        //        else if ((Mathf.Abs(directionVector.x) >= 0.0 || Mathf.Abs(directionVector.y) >= 0.0) && stamina >= 1)
-        //        {
-        //            selectedForce = pushForce * (int)stamina;
-        //            stamina -= 1;
-
-        //            GetComponent<Rigidbody>().AddForce(directionVector.x * pushForce, 0, directionVector.y * pushForce);
-
-        //        }
-        //        else
-        //        {
-
-        //        }
-
-        //        playerJumped = false;
-
-        //    }
-
-        if (stamina < maxStamina)
-        {
-            stamina += 1f * Time.deltaTime;
-        }
-        if (health < maxHealth)
-        {
-            health += 0.1f * Time.deltaTime;
+            gameStarting = false;
         }
 
+        if (gameStarting == false)
+        {
+            
+            if (health <= 0 && wolfDead == false)
+            {
+                wolfHit.Play();
+                wolfDead = true;
+                StartCoroutine(Die());
 
-        healthBar.value = (float)health;
-        staminaBar.value = (float)stamina;
-        previousVelocity = GetComponent<Rigidbody>().velocity;
+            }
 
+            UpdateDirectionVectorToPlayer();
+            if ((int)health >= 3 && cooldown<timer)
+            {
+                Attack();
+            }
+            else
+            {   
+                if(cooldown < timer) {
+                    RunAway();
+                }
+                
+              
+            }
 
+            
+            previousVelocity = GetComponent<Rigidbody>().velocity;
 
-
+        }
+        RegenerateStats();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -168,13 +114,11 @@ public class WolfController : MonoBehaviour
             GetComponent<Rigidbody>().velocity = direction * Mathf.Max(speed, 3f);
 
         }
-        
-
         previousVelocity = GetComponent<Rigidbody>().velocity;
         if (collision.collider.tag == "Player")
         {
             PlayerController playercontroller = collision.collider.gameObject.GetComponent<PlayerController>();
-            playercontroller.TakeDamage(-2);
+            playercontroller.TakeDamage(previousAttackPower);
         }
         if (collision.collider.tag == "Pig")
         {
@@ -187,7 +131,57 @@ public class WolfController : MonoBehaviour
     {
         health += damageValue;
     }
+    private void RegenerateStats()
+    {
+        stamina += 1f * Time.deltaTime;
+        health += 0.1f * Time.deltaTime;
+        if (stamina > maxStamina)
+        {
+            stamina = maxStamina;
 
+        }
+        if (health > maxHealth)
+        {
+            health = maxHealth;
+        }
+        healthBar.value = (float)health;
+        staminaBar.value = (float)stamina;
+    }
+    public void UpdateDirectionVectorToPlayer()
+    {
+        directionVectorToPlayer =  player.transform.position - transform.position;
+
+    }
+
+    public void Attack()
+    {
+       
+        attackPower = Random.Range(-5, 0);
+        if((int)stamina>= -attackPower)
+        {
+            GetComponent<Rigidbody>().AddForce(directionVectorToPlayer.normalized.x * pushForce * -attackPower, 0, directionVectorToPlayer.normalized.z * pushForce * -attackPower);
+            stamina += attackPower;
+            previousAttackPower = attackPower;
+            cooldown = Random.Range(1, 10);
+            timer = 0;
+        }
+        
+    }
+
+    public void RunAway()
+    {
+
+        attackPower = Random.Range(-5, 0);
+        if ((int)stamina >= -attackPower)
+        {
+            GetComponent<Rigidbody>().AddForce(-directionVectorToPlayer.normalized.x * pushForce * -attackPower, 0, -directionVectorToPlayer.normalized.z * pushForce * -attackPower);
+            stamina += attackPower;
+            previousAttackPower = attackPower;
+            cooldown = Random.Range(1, 10);
+            timer = 0;
+        }
+
+    }
     IEnumerator Die()
     {
        

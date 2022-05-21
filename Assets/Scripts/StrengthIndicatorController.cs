@@ -42,7 +42,7 @@ public class StrengthIndicatorController : MonoBehaviour
             indicator.SetActive(true);
             transform.LookAt(new Vector3(playerController.currentMousePosition.x, transform.position.y, playerController.currentMousePosition.z));
             transform.Rotate(90, -90, 0);
-            Debug.Log(-playerController.attackPower);
+            
             if (-playerController.attackPower == 5){power5.enabled = true;}
             else{ power5.enabled = false;}
             if (-playerController.attackPower == 4) { power4.enabled = true; }
