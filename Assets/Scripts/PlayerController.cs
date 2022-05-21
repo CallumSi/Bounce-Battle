@@ -88,10 +88,6 @@ public class PlayerController : MonoBehaviour
         {
 
             stamina += attackPower;
-            
-            //Debug.Log("stamina: " + stamina);
-            //Debug.Log("magnitude: "+currentDirectionVector.magnitude);
-            //Debug.Log("attack power: " + attackPower);
             GetComponent<Rigidbody>().AddForce(currentDirectionVector.normalized.x * pushForce * -attackPower, 0, currentDirectionVector.normalized.z * pushForce * -attackPower);
             previousAttackPower = attackPower;
             attackPower = 0;
@@ -120,7 +116,7 @@ public class PlayerController : MonoBehaviour
         {
             WolfController wolfcontroller = collision.collider.gameObject.GetComponent<WolfController>();
             wolfcontroller.TakeDamage(previousAttackPower);
-            Debug.Log("Giving Damage" + previousAttackPower);
+
         }
         if (collision.collider.tag == "Pig")
         {
@@ -131,7 +127,7 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(int damageValue)
     {
-        health += damageValue;
+        //health += damageValue;
        
         if (health <= 0)
         {
