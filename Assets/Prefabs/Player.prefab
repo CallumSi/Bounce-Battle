@@ -345,8 +345,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7237199458907752861}
-  m_LocalRotation: {x: -0.04907213, y: 0.8781113, z: -0.46689934, w: -0.09229036}
-  m_LocalPosition: {x: -55.44578, y: -43.66204, z: -38.802727}
+  m_LocalRotation: {x: 0.26932037, y: -0.6919425, z: 0.31533533, w: 0.5909701}
+  m_LocalPosition: {x: -70.444, y: -38.416634, z: -32.588696}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3074813065619091718}
@@ -444,20 +444,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33851ac07c4e36e4d8f93f97c4377f8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  previousMousePosition: {x: 0, y: 0, z: 0}
+  currentMousePosition: {x: 0, y: 0, z: 0}
   currentDirectionVector: {x: 0, y: 0, z: 0}
+  attackPower: 0
   playerDragging: 0
   player:
     serializedVersion: 2
     m_Bits: 8
   healthBar: {fileID: 7462108189575901270}
   staminaBar: {fileID: 4682747332725605091}
-  pushForce: 4000
   selectedForce: 0
   maxHealth: 10
   health: 10
   maxStamina: 5
-  stamina: 5
   healthRegeneration: 0.2
   staminaRegeneration: 1
   chickenSoundDie: {fileID: 0}

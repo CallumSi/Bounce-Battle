@@ -6,14 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    //store the previous position of the mouse
-    public Vector3 previousMousePosition;
+    public Vector3 currentMousePosition;
     //store the previous velocity
     private Vector3 previousVelocity;
     //store the previous velocity
     public Vector3 currentDirectionVector;
     //store the previous attack power
-    private int attackPower;
+    public int attackPower;
     //store if the player has initated a movement
     public bool playerDragging = false;
     //store the max distance of the raycast
@@ -27,8 +26,7 @@ public class PlayerController : MonoBehaviour
     //indicate if game won or lost
     public static bool gameWon;
     //store the push force
-    [SerializeField]
-    private float pushForce = 4000;
+    private float pushForce = 500;
     //store the selected force
     [SerializeField]
     private float selectedForce;
@@ -39,10 +37,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     public float health = 10;
     //store the max stamina
-    [SerializeField]
     public float maxStamina= 5;
     //store the stamina
-    [SerializeField]
     private float stamina = 5;
     //store the health regeneration per second
     [SerializeField]
@@ -69,58 +65,57 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            
             CheckIfPlayerClicked();
-           
         }
 
+        
+        if (currentDirectionVector.magnitude > 9 && (int)stamina >= 5)
+        {
+            attackPower = -5;
+            
+        }
+        else if (currentDirectionVector.magnitude > 7 && (int)stamina >= 4)
+        {
+            attackPower = -4;
+           
+        }
+        else if (currentDirectionVector.magnitude > 5 && (int)stamina >= 3)
+        {
+            attackPower = -3;
+           
+        }
+        else if (currentDirectionVector.magnitude > 3 && (int)stamina >= 2)
+        {
+            attackPower = -2;
+          
+        }
+        else if (currentDirectionVector.magnitude > 1 && (int)stamina >= 1)
+        {
+            attackPower = -1;
+            
+        }
+        
+            
+            
 
         //get the current direction vector
         UpdateDirectionVector();
 
-
+        //calculate the attack power
+       
+       
         //if left click up occours
         if (Input.GetMouseButtonUp(0) && playerDragging==true )
-        {     
-            if ((Mathf.Abs(currentDirectionVector.x) >= 0.4 || Mathf.Abs(currentDirectionVector.z) >= 0.4) && stamina==5)
-            {
-                selectedForce = pushForce * (int)stamina;
-                stamina -= 5;
-                attackPower = -5;
-                GetComponent<Rigidbody>().AddForce(currentDirectionVector.x * pushForce, 0, currentDirectionVector.z * pushForce);
-              
-            }
-            else if ((Mathf.Abs(currentDirectionVector.x) >= 0.3 || Mathf.Abs(currentDirectionVector.z) >= 0.3) && stamina >= 4)
-            {
-                selectedForce = pushForce * (int)stamina;
-                stamina -= 4;
-                attackPower = -4;
-                GetComponent<Rigidbody>().AddForce(currentDirectionVector.x * pushForce, 0, currentDirectionVector.z * pushForce);
-                
-            }
-            else if ((Mathf.Abs(currentDirectionVector.x) >= 0.2 || Mathf.Abs(currentDirectionVector.z) >= 0.2 )&& stamina >= 3)
-            {
-                selectedForce = pushForce * (int)stamina;
-                stamina -= 3;
-                attackPower = -3;
-                GetComponent<Rigidbody>().AddForce(currentDirectionVector.x * pushForce, 0, currentDirectionVector.z * pushForce);
-         
-            }
-            else if((Mathf.Abs(currentDirectionVector.x) >= 0.1 || Mathf.Abs(currentDirectionVector.z) >= 0.1 )&& stamina >= 2)
-            {
-                selectedForce = pushForce * (int)stamina;
-                stamina -= 2;
-                attackPower = -2;
-                GetComponent<Rigidbody>().AddForce(currentDirectionVector.x * pushForce, 0, currentDirectionVector.z * pushForce);
-          
-            }
-            else if((Mathf.Abs(currentDirectionVector.x) >= 0.0 || Mathf.Abs(currentDirectionVector.z) >= 0.0) && stamina >= 1)
-            {
-                selectedForce = pushForce * (int)stamina;
-                stamina -= 1;
-                attackPower = -1;
+        {
 
-                GetComponent<Rigidbody>().AddForce(currentDirectionVector.x * pushForce, 0, currentDirectionVector.z * pushForce);
-            }
+            stamina += attackPower;
+            
+            //Debug.Log("stamina: " + stamina);
+            //Debug.Log("magnitude: "+currentDirectionVector.magnitude);
+            //Debug.Log("attack power: " + attackPower);
+            GetComponent<Rigidbody>().AddForce(currentDirectionVector.normalized.x * pushForce * -attackPower, 0, currentDirectionVector.normalized.z * pushForce * -attackPower);
+            attackPower = 0;
             playerDragging = false;
 
         }
@@ -208,23 +203,25 @@ public class PlayerController : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, maxDistance))
         {
-            Vector3 currentMousePosition = hit.point;
-            previousMousePosition = currentMousePosition;
+           currentMousePosition = hit.point;
+            
             currentDirectionVector = transform.position - currentMousePosition;
-            currentDirectionVector = currentDirectionVector.normalized;
+            
         }
     }
 
     private void RegenerateStats()
     {
-
-        if (stamina < maxStamina)
+        stamina += 1f * Time.deltaTime;
+        health += 0.2f * Time.deltaTime;
+        if (stamina > maxStamina)
         {
-            stamina += 1f * Time.deltaTime;
+            stamina = maxStamina;
+         
         }
-        if (health < maxHealth)
+        if (health > maxHealth)
         {
-            health += 0.2f * Time.deltaTime;
+            health = maxHealth;
         }
         healthBar.value = (float)health;
         staminaBar.value = (float)stamina;

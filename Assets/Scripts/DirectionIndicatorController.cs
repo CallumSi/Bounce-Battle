@@ -27,7 +27,7 @@ public class DirectionIndicatorController : MonoBehaviour
         {
             
             indicator.SetActive(true);
-            transform.LookAt(new Vector3(playerController.previousMousePosition.x, transform.position.y, playerController.previousMousePosition.z));
+            transform.LookAt(new Vector3(playerController.currentMousePosition.x, transform.position.y, playerController.currentMousePosition.z));
             transform.Rotate(90, 90, 0);
         }
         else
