@@ -73,10 +73,11 @@ public class PlayerController : MonoBehaviour
 
         //calculate the attack power
         if (currentDirectionVector.magnitude > 9 && (int)stamina >= 5){attackPower = -5;}
-        else if (currentDirectionVector.magnitude > 7 && (int)stamina >= 4){attackPower = -4;}
-        else if (currentDirectionVector.magnitude > 5 && (int)stamina >= 3){attackPower = -3;}
-        else if (currentDirectionVector.magnitude > 3 && (int)stamina >= 2){attackPower = -2;}
+        else if (currentDirectionVector.magnitude > 4 && (int)stamina >= 4){attackPower = -4;}
+        else if (currentDirectionVector.magnitude > 3 && (int)stamina >= 3){attackPower = -3;}
+        else if (currentDirectionVector.magnitude > 2 && (int)stamina >= 2){attackPower = -2;}
         else if (currentDirectionVector.magnitude > 1 && (int)stamina >= 1){attackPower = -1;}
+
         //get the current direction vector
         UpdateDirectionVector();
 
