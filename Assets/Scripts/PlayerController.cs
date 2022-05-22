@@ -117,6 +117,7 @@ public class PlayerController : MonoBehaviour
         {
             WolfController wolfcontroller = collision.collider.gameObject.GetComponent<WolfController>();
             wolfcontroller.TakeDamage(previousAttackPower);
+            previousAttackPower = 0;
 
         }
         if (collision.collider.tag == "Pig")

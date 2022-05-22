@@ -8,21 +8,29 @@ public class MenuController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(this.gameObject.name=="End Menu")
+        {
+            GameObject WinText = GameObject.Find("WinText");
+            GameObject GameOverText = GameObject.Find("GameOverText");
+            if (PlayerController.gameWon == true)
+            {
 
-        if (PlayerController.gameWon == true && this.name=="End Menu")
-        {
-            GameObject WinBackground = GameObject.Find("WinBackground");
-            GameObject GameOverBackground = GameObject.Find("GameOverBackground");
-            WinBackground.SetActive(true);
-            GameOverBackground.SetActive(false);    
+                WinText.SetActive(true);
+                GameOverText.SetActive(false);
+            }
+            else if (PlayerController.gameWon == false)
+            {
+
+                WinText.SetActive(false);
+                GameOverText.SetActive(true);
+            }
+            else
+            {
+                WinText.SetActive(false);
+                GameOverText.SetActive(false);
+            }
         }
-        else if (PlayerController.gameWon == false && this.name == "End Menu")
-        {
-            GameObject WinBackground = GameObject.Find("WinBackground");
-            GameObject GameOverBackground = GameObject.Find("GameOverBackground");
-            WinBackground.SetActive(false);
-            GameOverBackground.SetActive(true);
-        }
+       
 
     }
 
