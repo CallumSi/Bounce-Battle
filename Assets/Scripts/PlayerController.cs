@@ -48,7 +48,6 @@ public class PlayerController : MonoBehaviour
     //store the stamina regeneration per second
     [SerializeField]
     private float staminaRegeneration = 1;
-  
     //audio
     [SerializeField]
     private AudioSource chickenSoundDie;
@@ -65,10 +64,14 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) | Input.touchCount == 1)
         {
-            
-            CheckIfPlayerClicked();
+            playerDragging = true;
+            //CheckIfPlayerClicked();
+        }
+        if(Input.touchCount > 1)
+        {
+            playerDragging = false;
         }
 
         //calculate the attack power
@@ -85,7 +88,7 @@ public class PlayerController : MonoBehaviour
        
        
         //if left click up occours
-        if (Input.GetMouseButtonUp(0) && playerDragging==true )
+        if (Input.GetMouseButtonUp(0) && playerDragging==true && Input.touchCount < 2)
         {
 
             stamina += attackPower;

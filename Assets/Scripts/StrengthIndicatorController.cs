@@ -36,7 +36,7 @@ public class StrengthIndicatorController : MonoBehaviour
 
         PlayerController playerController = player.GetComponent<PlayerController>();
 
-        if (playerController.playerDragging == true)
+        if (playerController.playerDragging == true )
         {
 
             indicator.SetActive(true);

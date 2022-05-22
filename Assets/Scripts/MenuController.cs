@@ -5,26 +5,35 @@ using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    //audio
+    [SerializeField]
+    private AudioSource winMusic;
+    //audio
+    [SerializeField]
+    private AudioSource gameoverMusic;
+
     void Start()
     {
         if(this.gameObject.name=="End Menu")
         {
             GameObject WinText = GameObject.Find("WinText");
             GameObject GameOverText = GameObject.Find("GameOverText");
+
             if (PlayerController.gameWon == true)
             {
-
                 WinText.SetActive(true);
                 GameOverText.SetActive(false);
+                winMusic.Play();
+
             }
             else if (PlayerController.gameWon == false)
             {
 
                 WinText.SetActive(false);
                 GameOverText.SetActive(true);
-            }
-            else
+                gameoverMusic.Play();
+        }
+        else
             {
                 WinText.SetActive(false);
                 GameOverText.SetActive(false);
