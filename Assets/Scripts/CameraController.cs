@@ -119,12 +119,12 @@ public class CameraController : MonoBehaviour
             //get this ditance between the two touches
             float newPinchDistance = Vector2.Distance(touch1.position, touch2.position) / 100;
             //if the distance between pinces is increasing
-            if (newPinchDistance > previousPinchDistance && newPinchDistance > 5)
+            if (newPinchDistance > previousPinchDistance && newPinchDistance > 2)
             {
                 zoomDistance += 0.1f;
             }
             //if the distance between pinces is decreasing 
-            if (newPinchDistance < previousPinchDistance && newPinchDistance > 5)
+            if (newPinchDistance < previousPinchDistance && newPinchDistance > 2)
             {
                 zoomDistance -= 0.1f;
             }
