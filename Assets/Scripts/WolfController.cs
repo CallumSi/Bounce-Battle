@@ -162,7 +162,7 @@ public class WolfController : MonoBehaviour
             GetComponent<Rigidbody>().AddForce(directionVectorToPlayer.normalized.x * pushForce * -attackPower, 0, directionVectorToPlayer.normalized.z * pushForce * -attackPower);
             stamina += attackPower;
             previousAttackPower = attackPower;
-            cooldown = Random.Range(1, 10);
+            cooldown = Random.Range(5, 15);
             timer = 0;
         }
         

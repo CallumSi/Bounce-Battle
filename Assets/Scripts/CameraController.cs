@@ -16,10 +16,13 @@ public class CameraController : MonoBehaviour
     private Vector3 directionVector;
     //store the distance zoomed in or out
     private float zoomDistance = -25;
+    //store the sensitivity
+    private float sensitivity = 3.5f;
+
     void Start()
     {
         //set the inital position 
-        transform.position = new Vector3(0, 5, 0);
+        transform.position = new Vector3(0, 4, 0);
         //rotate then rotate and scale outwards
         transform.Rotate(new Vector3(1, 0, 0), 5);
         transform.Rotate(new Vector3(0, 1, 0), 5, Space.World);
@@ -36,6 +39,8 @@ public class CameraController : MonoBehaviour
             //if two finger input
             if (Input.touchCount == 2)
             {
+                //modify sensitivity
+                sensitivity = 1f;
                 //get both the touches
                 Touch touch1 = Input.GetTouch(0);
                 Touch touch2 = Input.GetTouch(1);
@@ -50,6 +55,15 @@ public class CameraController : MonoBehaviour
             UpdateDirectionVector();
             //update the zoom distance
             UpdateZoomDistance();
+            //clamp input        
+            if (directionVector.y > 0.05f)
+            {
+                directionVector.y = 0.05f;
+            }
+            if (directionVector.y < -0.05f)
+            {
+                directionVector.y = -0.05f;
+            }
             //clamp rotation
             //if the angle is above 70 and you are trying to move up
             if (transform.rotation.eulerAngles.x > 70f && directionVector.y > 0)
@@ -60,14 +74,16 @@ public class CameraController : MonoBehaviour
             //if the angle is below 10 and you are trying to move down
             else if (transform.rotation.eulerAngles.x < 10f && directionVector.y < 0)
             {
+                //set the rotation amount to 0
                 directionVector.y = 0;
             }
+            Debug.Log(directionVector.y);
             //position the camera at the centre of the base
-            transform.position = new Vector3(0, 10, 0);
+            transform.position = new Vector3(0, 4, 0);
             //rotate around x axis
-            transform.Rotate(new Vector3(1, 0, 0), directionVector.y * 180);
+            transform.Rotate(new Vector3(1, 0, 0), (directionVector.y * 180)/sensitivity);
             //rotate around y axis 
-            transform.Rotate(new Vector3(0, 1, 0), -directionVector.x * 180, Space.World);
+            transform.Rotate(new Vector3(0, 1, 0), -directionVector.x * 180/sensitivity, Space.World);
             //translate in the z direction(outward)
             transform.Translate(new Vector3(0, 0, zoomDistance));
             //update the mouse position
@@ -103,21 +119,21 @@ public class CameraController : MonoBehaviour
             //get this ditance between the two touches
             float newPinchDistance = Vector2.Distance(touch1.position, touch2.position) / 100;
             //if the distance between pinces is increasing
-            if (newPinchDistance > previousPinchDistance && newPinchDistance > 1)
+            if (newPinchDistance > previousPinchDistance && newPinchDistance > 5)
             {
-                zoomDistance += newPinchDistance;
+                zoomDistance += 0.1f;
             }
             //if the distance between pinces is decreasing 
-            if (newPinchDistance < previousPinchDistance && newPinchDistance > 1)
+            if (newPinchDistance < previousPinchDistance && newPinchDistance > 5)
             {
-                zoomDistance -= newPinchDistance;
+                zoomDistance -= 0.1f;
             }
 
         }
         //clamp the values
-        if (zoomDistance < -20)
+        if (zoomDistance < -40)
         {
-            zoomDistance = -20;
+            zoomDistance = -40;
 
         }
         if (zoomDistance > -10)
