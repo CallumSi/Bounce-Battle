@@ -56,15 +56,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     public AudioSource chickenSound2;
     [SerializeField]
+    public AudioSource clink;
+    [SerializeField]
     public Image neutral;
     [SerializeField]
     public Image happy;
     [SerializeField]
     public Image sad;
+    [SerializeField]
+    public GameObject starEffect;
     void Start()
     {
         healthBar.maxValue = (float)maxHealth;
         staminaBar.maxValue = (float)maxStamina;
+        starEffect.SetActive(false);
     }
 
     // Update is called once per frame
@@ -128,14 +133,18 @@ public class PlayerController : MonoBehaviour
         if (collision.collider.tag == "Wolf")
         {
             WolfController wolfcontroller = collision.collider.gameObject.GetComponent<WolfController>();
+            clink.Play();
             wolfcontroller.TakeDamage(previousAttackPower);
             previousAttackPower = 0;
+            StartCoroutine(PlayParticleEffect());
 
         }
         if (collision.collider.tag == "Pig")
         {
             PigController pigcontroller = collision.collider.gameObject.GetComponent<PigController>();
+            clink.Play();
             pigcontroller.ApplyPlayerBuff(this);
+            StartCoroutine(PlayParticleEffect());
         }
     }
 
@@ -151,6 +160,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            
             sad.enabled = true;
             neutral.enabled = false;
             happy.enabled = false;
@@ -174,6 +184,13 @@ public class PlayerController : MonoBehaviour
        
     }
 
+    IEnumerator PlayParticleEffect()
+    {
+        starEffect.SetActive(true);
+        yield return new WaitForSeconds(1);
+        starEffect.SetActive(false);
+
+    }
 
 
     private void CheckIfPlayerClicked()

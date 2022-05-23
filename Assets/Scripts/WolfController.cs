@@ -46,6 +46,8 @@ public class WolfController : MonoBehaviour
     //audio
     [SerializeField]
     private AudioSource wolfHit;
+    [SerializeField]
+    private AudioSource wolfPoof;
     //is the wolf dead
     private bool wolfDead = false;
     //store if the game isstarted 
@@ -91,7 +93,8 @@ public class WolfController : MonoBehaviour
             
             if (health <= 0 && wolfDead == false)
             {
-                wolfHit.Play();
+                //wolfHit.Play();
+                wolfPoof.Play();
                 wolfDead = true;
                 StartCoroutine(Die());
 
@@ -200,6 +203,7 @@ public class WolfController : MonoBehaviour
     }
     IEnumerator Die()
     {
+        
         wolfdieImage.enabled = true;
         yield return new WaitForSeconds(1);
         wolfdieImage.enabled = false;
