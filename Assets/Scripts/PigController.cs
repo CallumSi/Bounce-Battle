@@ -38,14 +38,20 @@ public class PigController : MonoBehaviour
     private GameObject player;
     [SerializeField]
     private AudioSource pigHit;
-
+    private Image pigImage;
     void Start()
     {
        
         maxStamina = Random.Range(3, 4);
         stamina = maxStamina;
-    
+        
         player = GameObject.FindGameObjectWithTag("Player");
+        GameObject imageObject = GameObject.Find("Pighud");
+        if (imageObject != null)
+        {
+            pigImage = imageObject.GetComponent<Image>();
+            pigImage.enabled = false;
+        }
     }
 
     // Update is called once per frame
@@ -100,7 +106,11 @@ public class PigController : MonoBehaviour
         controller.maxHealth += 1;
         controller.health = controller.maxHealth;
         controller.maxStamina += 1;
-        pigHit.Play();
+        controller.neutral.enabled = false;
+        controller.happy.enabled = true;
+        controller.sad.enabled = false;
+        StartCoroutine(ShowHud());
+        
 
     }
     public void ApplyWolfBuff(WolfController controller)
@@ -142,5 +152,14 @@ public class PigController : MonoBehaviour
         }
        
         
+    }
+
+    IEnumerator ShowHud()
+    {
+        pigHit.Play();
+        pigImage.enabled = true;
+        yield return new WaitForSeconds(2);
+        pigImage.enabled = false;
+
     }
 }

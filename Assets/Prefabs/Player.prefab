@@ -345,8 +345,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7237199458907752861}
-  m_LocalRotation: {x: -0.45566943, y: 0.4469223, z: 0.71523035, w: 0.2847306}
-  m_LocalPosition: {x: -21.244862, y: -98.86041, z: 93.366425}
+  m_LocalRotation: {x: 0.14221285, y: -0.6868333, z: -0.6989317, w: -0.13974997}
+  m_LocalPosition: {x: 17.18785, y: -127.32745, z: 110.6081}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3074813065619091718}
@@ -463,6 +463,9 @@ MonoBehaviour:
   chickenSoundDie: {fileID: 0}
   chickenSound1: {fileID: 0}
   chickenSound2: {fileID: 0}
+  neutral: {fileID: 0}
+  happy: {fileID: 0}
+  sad: {fileID: 0}
 --- !u!1 &7371957457456066959
 GameObject:
   m_ObjectHideFlags: 0

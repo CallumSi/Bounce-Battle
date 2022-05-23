@@ -41,6 +41,8 @@ public class WolfController : MonoBehaviour
     private int attackPower;
     private float cooldown;
     private float timer;
+    private Image wolfImage;
+    private Image wolfdieImage;
     //audio
     [SerializeField]
     private AudioSource wolfHit;
@@ -59,6 +61,18 @@ public class WolfController : MonoBehaviour
         healthBar.maxValue = (float)maxHealth;
         staminaBar.maxValue = (float)maxStamina;
         player = GameObject.FindGameObjectWithTag("Player");
+        GameObject imageObject = GameObject.Find("Wolfhud");
+        if (imageObject != null)
+        {
+            wolfImage = imageObject.GetComponent<Image>();
+            wolfImage.enabled = false;
+        }
+        GameObject imageObject2 = GameObject.Find("Wolfdiehud");
+        if (imageObject2 != null)
+        {
+            wolfdieImage = imageObject2.GetComponent<Image>();
+            wolfdieImage.enabled = false;
+        }
     }
 
     // Update is called once per frame
@@ -119,6 +133,7 @@ public class WolfController : MonoBehaviour
         {
             PlayerController playercontroller = collision.collider.gameObject.GetComponent<PlayerController>();
             playercontroller.TakeDamage(previousAttackPower);
+            StartCoroutine(ShowHud());
         }
         if (collision.collider.tag == "Pig")
         {
@@ -130,6 +145,7 @@ public class WolfController : MonoBehaviour
     public void TakeDamage(int damageValue)
     {
         health += damageValue;
+
     }
     private void RegenerateStats()
     {
@@ -184,8 +200,18 @@ public class WolfController : MonoBehaviour
     }
     IEnumerator Die()
     {
-       
+        wolfdieImage.enabled = true;
         yield return new WaitForSeconds(1);
+        wolfdieImage.enabled = false;
         Destroy(this.gameObject);
+    }
+
+    IEnumerator ShowHud()
+    {
+        wolfHit.Play();
+        wolfImage.enabled = true;
+        yield return new WaitForSeconds(2);
+        wolfImage.enabled = false;
+
     }
 }

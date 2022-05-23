@@ -54,7 +54,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private AudioSource chickenSound1;
     [SerializeField]
-    private AudioSource chickenSound2;
+    public AudioSource chickenSound2;
+    [SerializeField]
+    public Image neutral;
+    [SerializeField]
+    public Image happy;
+    [SerializeField]
+    public Image sad;
     void Start()
     {
         healthBar.maxValue = (float)maxHealth;
@@ -97,6 +103,9 @@ public class PlayerController : MonoBehaviour
             attackPower = 0;
             playerDragging = false;
 
+            neutral.enabled = true;
+            happy.enabled = false;
+            sad.enabled = false;
         }
 
         RegenerateStats();
@@ -142,7 +151,10 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if(Random.Range(0,10) < 5)
+            sad.enabled = true;
+            neutral.enabled = false;
+            happy.enabled = false;
+            if (Random.Range(0,10) < 5)
             {
                 chickenSound1.Play();
             }
