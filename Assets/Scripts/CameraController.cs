@@ -8,8 +8,6 @@ public class CameraController : MonoBehaviour
 {
     //store the previous position of the mouse
     private Vector3 previousMousePosition;
-    //store the previous distance between the last two touches
-    private float previousPinchDistance;
     //store the current mouse position
     private Vector3 currentMousePosition;
     //store the direction vector between last two mouse/touch inputs
@@ -18,6 +16,8 @@ public class CameraController : MonoBehaviour
     private float zoomDistance = -25;
     //store the sensitivity
     private float sensitivity = 3.5f;
+    //store the previous distance between the last two touches
+    private float previousPinchDistance;
 
     void Start()
     {
@@ -55,7 +55,7 @@ public class CameraController : MonoBehaviour
             UpdateDirectionVector();
             //update the zoom distance
             UpdateZoomDistance();
-            //clamp input        
+            //clamp input values(prevent certain speeds causing camera flips)       
             if (directionVector.y > 0.05f)
             {
                 directionVector.y = 0.05f;
@@ -77,7 +77,6 @@ public class CameraController : MonoBehaviour
                 //set the rotation amount to 0
                 directionVector.y = 0;
             }
-            Debug.Log(directionVector.y);
             //position the camera at the centre of the base
             transform.position = new Vector3(0, 4, 0);
             //rotate around x axis
@@ -130,7 +129,7 @@ public class CameraController : MonoBehaviour
             }
 
         }
-        //clamp the values
+        //clamp the zoom distance values
         if (zoomDistance < -40)
         {
             zoomDistance = -40;

@@ -5,7 +5,7 @@ using UnityEngine;
 public class SafeAreaController : MonoBehaviour
 {
     //code from https://www.youtube.com/watch?v=VprqsEsFb5w&t=98s&ab_channel=Hooson
-
+    //used to keep UI in safe area of device
     RectTransform rectTransform;
     Rect safeArea;
     Vector2 minAnchor;
