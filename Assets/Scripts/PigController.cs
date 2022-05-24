@@ -106,6 +106,8 @@ public class PigController : MonoBehaviour
         controller.maxHealth += 1;
         controller.health = controller.maxHealth;
         controller.maxStamina += 1;
+        controller.healthBar.maxValue = (float)maxHealth;
+        controller.staminaBar.maxValue = (float)maxStamina;
         controller.neutral.enabled = false;
         controller.happy.enabled = true;
         controller.sad.enabled = false;
@@ -117,6 +119,8 @@ public class PigController : MonoBehaviour
     {
         controller.maxHealth += 1;
         controller.health = controller.maxHealth;
+        controller.healthBar.maxValue = (float)maxHealth;
+        controller.staminaBar.maxValue = (float)maxStamina;
         pigHit.Play();
     }
 

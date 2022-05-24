@@ -146,6 +146,11 @@ public class PlayerController : MonoBehaviour
             pigcontroller.ApplyPlayerBuff(this);
             StartCoroutine(PlayParticleEffect());
         }
+        if (collision.collider.tag == "OutOfBounds")
+        {
+            
+            StartCoroutine(Die());
+        }
     }
 
     public void TakeDamage(int damageValue)

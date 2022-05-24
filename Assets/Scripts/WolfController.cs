@@ -136,12 +136,18 @@ public class WolfController : MonoBehaviour
         {
             PlayerController playercontroller = collision.collider.gameObject.GetComponent<PlayerController>();
             playercontroller.TakeDamage(previousAttackPower);
+            previousAttackPower = 0;
             StartCoroutine(ShowHud());
         }
         if (collision.collider.tag == "Pig")
         {
             PigController pigcontroller = collision.collider.gameObject.GetComponent<PigController>();
             pigcontroller.ApplyWolfBuff(this);
+        }
+        if (collision.collider.tag == "OutOfBounds")
+        {
+            wolfDead = true;
+            StartCoroutine(Die());
         }
 
     }
