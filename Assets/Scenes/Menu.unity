@@ -232,7 +232,7 @@ RectTransform:
   - {fileID: 1472861671}
   - {fileID: 639627179}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -251,7 +251,7 @@ GameObject:
   - component: {fileID: 53225202}
   - component: {fileID: 53225201}
   m_Layer: 5
-  m_Name: Pig
+  m_Name: PigIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -269,7 +269,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2105159569}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -326,7 +326,7 @@ GameObject:
   - component: {fileID: 62106384}
   - component: {fileID: 62106383}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: QuitButtonText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -536,7 +536,7 @@ GameObject:
   - component: {fileID: 106251128}
   - component: {fileID: 106251127}
   m_Layer: 5
-  m_Name: Rules
+  m_Name: RulesButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -693,7 +693,7 @@ GameObject:
   - component: {fileID: 166035364}
   - component: {fileID: 166035363}
   m_Layer: 5
-  m_Name: Quit
+  m_Name: QuitButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -825,7 +825,7 @@ GameObject:
   - component: {fileID: 218436862}
   - component: {fileID: 218436861}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: ControlsButtonText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -960,7 +960,7 @@ GameObject:
   - component: {fileID: 228334885}
   - component: {fileID: 228334884}
   m_Layer: 5
-  m_Name: Back
+  m_Name: BackButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1220,7 +1220,7 @@ GameObject:
   - component: {fileID: 240557289}
   - component: {fileID: 240557288}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: PlayButtonText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1354,7 +1354,7 @@ GameObject:
   - component: {fileID: 247127067}
   - component: {fileID: 247127066}
   m_Layer: 5
-  m_Name: Text (TMP) (4)
+  m_Name: 'Text '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1488,7 +1488,7 @@ GameObject:
   - component: {fileID: 279997948}
   - component: {fileID: 279997947}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1622,7 +1622,7 @@ GameObject:
   - component: {fileID: 303866402}
   - component: {fileID: 303866401}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: RulesButtonText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1756,7 +1756,7 @@ GameObject:
   - component: {fileID: 455265021}
   - component: {fileID: 455265020}
   m_Layer: 5
-  m_Name: Pig (2)
+  m_Name: PigIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1907,7 +1907,7 @@ GameObject:
   - component: {fileID: 512985586}
   - component: {fileID: 512985585}
   m_Layer: 5
-  m_Name: Play
+  m_Name: PlayButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2039,7 +2039,7 @@ GameObject:
   - component: {fileID: 541979739}
   - component: {fileID: 541979738}
   m_Layer: 5
-  m_Name: Wolf
+  m_Name: WolfIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2114,7 +2114,7 @@ GameObject:
   - component: {fileID: 582112106}
   - component: {fileID: 582112105}
   m_Layer: 5
-  m_Name: Wolf (1)
+  m_Name: WolfIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2132,7 +2132,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2105159569}
-  m_RootOrder: 7
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2286,7 +2286,7 @@ RectTransform:
   - {fileID: 1023117720}
   - {fileID: 2105159569}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2305,7 +2305,7 @@ GameObject:
   - component: {fileID: 599266445}
   - component: {fileID: 599266444}
   m_Layer: 5
-  m_Name: Wolf
+  m_Name: WolfIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2380,7 +2380,7 @@ GameObject:
   - component: {fileID: 632673525}
   - component: {fileID: 632673524}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: BackButtonText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2574,7 +2574,7 @@ GameObject:
   - component: {fileID: 672770275}
   - component: {fileID: 672770274}
   m_Layer: 5
-  m_Name: Text (TMP) (5)
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2783,7 +2783,7 @@ GameObject:
   - component: {fileID: 708383200}
   - component: {fileID: 708383199}
   m_Layer: 5
-  m_Name: Pig (2)
+  m_Name: PigIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2858,7 +2858,7 @@ GameObject:
   - component: {fileID: 738830016}
   - component: {fileID: 738830015}
   m_Layer: 5
-  m_Name: ControlsText
+  m_Name: ControlsTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2992,7 +2992,7 @@ GameObject:
   - component: {fileID: 762134206}
   - component: {fileID: 762134205}
   m_Layer: 5
-  m_Name: Chicken (1)
+  m_Name: ChickenIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3010,7 +3010,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1644963676}
-  m_RootOrder: 8
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -3248,7 +3248,7 @@ GameObject:
   - component: {fileID: 837110335}
   - component: {fileID: 837110334}
   m_Layer: 5
-  m_Name: Back
+  m_Name: BackButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3392,7 +3392,7 @@ GameObject:
   - component: {fileID: 937752255}
   - component: {fileID: 937752254}
   m_Layer: 5
-  m_Name: Wolf
+  m_Name: WolfIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3468,7 +3468,7 @@ GameObject:
   - component: {fileID: 971392184}
   - component: {fileID: 971392183}
   m_Layer: 5
-  m_Name: Controls
+  m_Name: ControlsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3676,7 +3676,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1018099439
 GameObject:
@@ -3690,7 +3690,7 @@ GameObject:
   - component: {fileID: 1018099442}
   - component: {fileID: 1018099441}
   m_Layer: 5
-  m_Name: Pig
+  m_Name: PigIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3840,7 +3840,7 @@ GameObject:
   - component: {fileID: 1041349298}
   - component: {fileID: 1041349297}
   m_Layer: 5
-  m_Name: Text (TMP) (5)
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3974,7 +3974,7 @@ GameObject:
   - component: {fileID: 1271191394}
   - component: {fileID: 1271191393}
   m_Layer: 5
-  m_Name: Wolf (1)
+  m_Name: WolfIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3992,7 +3992,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1644963676}
-  m_RootOrder: 10
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4049,7 +4049,7 @@ GameObject:
   - component: {fileID: 1277429501}
   - component: {fileID: 1277429500}
   m_Layer: 5
-  m_Name: Chicken (1)
+  m_Name: ChickenIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4067,7 +4067,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2105159569}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -4199,7 +4199,7 @@ GameObject:
   - component: {fileID: 1528110961}
   - component: {fileID: 1528110960}
   m_Layer: 5
-  m_Name: Wolf (1)
+  m_Name: WolfIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4274,7 +4274,7 @@ GameObject:
   - component: {fileID: 1607476296}
   - component: {fileID: 1607476295}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4431,10 +4431,10 @@ RectTransform:
   - {fileID: 166035362}
   - {fileID: 541979737}
   - {fileID: 1836073411}
-  - {fileID: 2045969001}
-  - {fileID: 762134204}
-  - {fileID: 708383198}
   - {fileID: 1271191392}
+  - {fileID: 2045969001}
+  - {fileID: 708383198}
+  - {fileID: 762134204}
   m_Father: {fileID: 236424628}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4467,7 +4467,7 @@ GameObject:
   - component: {fileID: 1728158900}
   - component: {fileID: 1728158899}
   m_Layer: 5
-  m_Name: RulesText
+  m_Name: RulesTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4694,7 +4694,7 @@ GameObject:
   - component: {fileID: 1826447386}
   - component: {fileID: 1826447385}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4769,7 +4769,7 @@ GameObject:
   - component: {fileID: 1836073413}
   - component: {fileID: 1836073412}
   m_Layer: 5
-  m_Name: Wolf
+  m_Name: WolfIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4844,7 +4844,7 @@ GameObject:
   - component: {fileID: 1860283086}
   - component: {fileID: 1860283085}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: BackButtonText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4978,7 +4978,7 @@ GameObject:
   - component: {fileID: 1870105989}
   - component: {fileID: 1870105988}
   m_Layer: 5
-  m_Name: Chicken (1)
+  m_Name: ChickenIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5053,7 +5053,7 @@ GameObject:
   - component: {fileID: 1885023118}
   - component: {fileID: 1885023117}
   m_Layer: 5
-  m_Name: Pig (2)
+  m_Name: PigIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5203,7 +5203,7 @@ GameObject:
   - component: {fileID: 2032391362}
   - component: {fileID: 2032391361}
   m_Layer: 5
-  m_Name: Wolf
+  m_Name: WolfIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5278,7 +5278,7 @@ GameObject:
   - component: {fileID: 2045969003}
   - component: {fileID: 2045969002}
   m_Layer: 5
-  m_Name: Pig
+  m_Name: PigIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5296,7 +5296,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1644963676}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -5353,7 +5353,7 @@ GameObject:
   - component: {fileID: 2046704729}
   - component: {fileID: 2046704728}
   m_Layer: 5
-  m_Name: Wolf
+  m_Name: WolfIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5448,10 +5448,10 @@ RectTransform:
   - {fileID: 228334883}
   - {fileID: 937752253}
   - {fileID: 2032391360}
-  - {fileID: 53225200}
-  - {fileID: 1277429499}
-  - {fileID: 455265019}
   - {fileID: 582112104}
+  - {fileID: 53225200}
+  - {fileID: 455265019}
+  - {fileID: 1277429499}
   - {fileID: 690095292}
   - {fileID: 1826447384}
   - {fileID: 1607476294}
